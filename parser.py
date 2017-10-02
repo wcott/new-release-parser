@@ -10,16 +10,14 @@ category_list = list()
 new_release_dict = dict()
 
 with open('release.tsv') as f:
-    for line in f: 
-        # Skipping the column names
-        f.next()
-        for line in f:
-            name, mfg, link, category = line.split('\t')
-            # Remove white space, title case everything, remove quotations
-            name_list.append(name.strip().title().replace('"','').replace('\'',''))
-            mfg_list.append(mfg.strip().title().replace('"','').replace('\'',''))
-            link_list.append(link.strip())
-            category_list.append(category.strip().title().replace('"','').replace('\'',''))
+    lines = f.readlines()[1:]
+    for line in lines:
+        name, mfg, link, category = line.split('\t')
+        # Remove white space, title case everything, remove quotations
+        name_list.append(name.strip().title().replace('"','').replace('\'',''))
+        mfg_list.append(mfg.strip().title().replace('"','').replace('\'',''))
+        link_list.append(link.strip())
+        category_list.append(category.strip().title().replace('"','').replace('\'',''))
 
 for i in range(0, len(name_list) - 1):
     # if there is more than one release per mfg, I want to only have the mfg
