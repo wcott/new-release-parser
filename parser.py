@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from datetime import date
 
 # Parellel lists for each new release entry
 name_list = list()
@@ -31,7 +32,8 @@ for i in range(0, len(name_list) - 1):
         new_release_dict[dict_key].append(dict_values)    
     else:
         new_release_dict[dict_key] = [(dict_values)]    
-with open('formatted-reddit-post.txt', "w") as f:
+date = date.today().isoformat()
+with open('archive/{0}'.format(date), "w") as f:
     f.write("What up mini people?! Got some more new releases, teasers, and kickstarters for ya!\n\n\n")
     for mfg, values in new_release_dict.iteritems():
         if len(values) == 1:
