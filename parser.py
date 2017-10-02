@@ -11,12 +11,15 @@ new_release_dict = dict()
 
 with open('release.tsv') as f:
     for line in f: 
-        name, mfg, link, category = line.split('\t')
-        # Remove white space, title case everything, remove quotations
-        name_list.append(name.strip().title().replace('"','').replace('\'',''))
-        mfg_list.append(mfg.strip().title().replace('"','').replace('\'',''))
-        link_list.append(link.strip())
-        category_list.append(category.strip().title().replace('"','').replace('\'',''))
+        # Skipping the column names
+        f.next()
+        for line in f:
+            name, mfg, link, category = line.split('\t')
+            # Remove white space, title case everything, remove quotations
+            name_list.append(name.strip().title().replace('"','').replace('\'',''))
+            mfg_list.append(mfg.strip().title().replace('"','').replace('\'',''))
+            link_list.append(link.strip())
+            category_list.append(category.strip().title().replace('"','').replace('\'',''))
 
 for i in range(0, len(name_list) - 1):
     # if there is more than one release per mfg, I want to only have the mfg
@@ -32,6 +35,7 @@ for i in range(0, len(name_list) - 1):
         new_release_dict[dict_key].append(dict_values)    
     else:
         new_release_dict[dict_key] = [(dict_values)]    
+
 date = date.today().isoformat()
 with open('archive/{0}'.format(date), "w") as f:
     f.write("What up mini people?! Got some more new releases, teasers, and kickstarters for ya!\n\n\n")
