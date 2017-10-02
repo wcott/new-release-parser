@@ -8,6 +8,7 @@ link_list = list()
 category_list = list()
 # Dictionary containing all new releases
 new_release_dict = dict()
+crowd_funding_formatted_list = list()
 
 with open('release.tsv') as f:
     lines = f.readlines()[1:]
@@ -23,20 +24,24 @@ for i in range(0, len(name_list) - 1):
     # if there is more than one release per mfg, I want to only have the mfg
     # listed once. So, I'm modeling my data structure after this idea.
     
-    dict_key = mfg_list[i]
-    dict_values = {
-                    "link": link_list[i],
-                    "name": name_list[i],
-                    "category": category_list[i]
-                    }
-    if dict_key in new_release_dict:
-        new_release_dict[dict_key].append(dict_values)    
+    if "Crowd Funding" in category_list[i]:
+        crowd_funding_formatted_list.append("* [{0}]({1})\n".format(mfg_list[i], link_list[i]))
     else:
-        new_release_dict[dict_key] = [(dict_values)]    
+        dict_key = mfg_list[i]
+        dict_values = {
+                        "link": link_list[i],
+                        "name": name_list[i],
+                        "category": category_list[i]
+                        }
+        if dict_key in new_release_dict:
+            new_release_dict[dict_key].append(dict_values)
+        else:
+            new_release_dict[dict_key] = [(dict_values)]
 
 date = date.today().isoformat()
 with open('archive/{0}'.format(date), "w") as f:
     f.write("What up mini people?! Got some more new releases, teasers, and kickstarters for ya!\n\n\n")
+    f.write("*New Releases and Teasers*\n\n\n")
     for mfg, values in new_release_dict.iteritems():
         if len(values) == 1:
             release_dict = values[0]
@@ -47,7 +52,11 @@ with open('archive/{0}'.format(date), "w") as f:
             for value in values:
                 f.write("* [{0} - {1}]({2})\n".format(value['name'], value['category'], value['link']))
             f.write("\n\n")
+    f.write("\nCrowd Funding Campaigns\n\n")
+    for item in crowd_funding_formatted_list:
+        f.write(item)
 
+    f.write("\n\n\n")
     f.write("If I missed any releases in the last two weeks don't hesitate to "
             "list them and I will update the post.If you see any mistakes/broken " 
             "links or have any questions, feel free to message me or comment on the thread. PAINT MORE MINIS!\n\n")
