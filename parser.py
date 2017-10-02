@@ -51,4 +51,5 @@ with open('archive/{0}'.format(date), "w") as f:
     f.write("If I missed any releases in the last two weeks don't hesitate to "
             "list them and I will update the post.If you see any mistakes/broken " 
             "links or have any questions, feel free to message me or comment on the thread. PAINT MORE MINIS!\n\n")
-    f.write("[archive of older posts](https://www.reddit.com/r/minipainting/wiki/newreleasesarchive)")
+    f.write("[archive of older posts](https://www.reddit.com/r/minipainting/wiki/newreleasesarchive)\n\n")
+    f.write("Would you like to help find the new releases that go into this post? Private message /u/SDuby!")
