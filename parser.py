@@ -13,9 +13,12 @@ crowd_funding_formatted_list = list()
 with open('release.tsv') as f:
     lines = f.readlines()[1:]
     for line in lines:
-        name, mfg, link, category = line.split('\t')
+        name, mfg, link, category, nsfw = line.split('\t')
         # Remove white space, title case everything, remove quotations
-        name_list.append(name.strip().title().replace('"','').replace('\'',''))
+        if "Yes" in nsfw:
+            name_list.append(name.strip().title().replace('"','').replace('\'','') + " NSFW")
+        else:
+            name_list.append(name.strip().title().replace('"','').replace('\'',''))
         mfg_list.append(mfg.strip().title().replace('"','').replace('\'',''))
         link_list.append(link.strip())
         category_list.append(category.strip().title().replace('"','').replace('\'',''))
