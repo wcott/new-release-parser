@@ -28,7 +28,7 @@ for i in range(0, len(name_list) - 1):
     # listed once. So, I'm modeling my data structure after this idea.
 
     if "Crowd Funding" in category_list[i]:
-        crowd_funding_formatted_list.append("* [{0}]({1})\n".format(mfg_list[i], link_list[i]))
+        crowd_funding_formatted_list.append("* [{0}]({1})\n".format(name_list[i], link_list[i]))
     else:
         dict_key = mfg_list[i]
         dict_values = {
