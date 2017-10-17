@@ -61,9 +61,11 @@ with open('archive/{0}'.format(date), "w") as f:
                 else:
                     f.write("* [{0}]({1})\n".format(value['name'], value['link']))
             f.write("\n\n")
-    f.write("\n**Crowd Funding Campaigns**\n\n")
-    for item in crowd_funding_formatted_list:
-        f.write(item)
+
+    if crowd_funding_formatted_list:
+        f.write("\n**Crowd Funding Campaigns**\n\n")
+        for item in crowd_funding_formatted_list:
+            f.write(item)
 
     f.write("\n\n\n")
     f.write("If I missed any releases in the last two weeks don't hesitate to "
